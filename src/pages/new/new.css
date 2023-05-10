@@ -1,0 +1,52 @@
+
+.form-group_checklist{
+    border: none !important;
+    width: 100% !important;
+    height: auto !important;
+}
+.form-group .form-group_checklist_label {
+	position: relative;
+	cursor: pointer;
+	margin-right: 19px;
+  }
+  input[type="checkbox" i] {
+    appearance: none !important;
+  }
+    .form-group .form-group_checklist_label:before {
+	content:'';
+	
+	background-color: transparent;
+	border: 2px solid #EF8451;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+	padding: 7px;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	cursor: pointer;
+	margin-left: 15px
+  }
+ .form-group .form-group_checklist:checked + label:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 6px;
+    left: 22px;
+    width: 5px;
+    height: 12px;
+	border: solid  #EF8451;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+  }
+ 
+  .form-group .form-group_checklist:checked + label:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 6px;
+    right: 6px;
+    width: 5px;
+    height: 12px;
+	border: solid  #EF8451;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+  }

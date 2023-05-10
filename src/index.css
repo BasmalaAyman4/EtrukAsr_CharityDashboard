@@ -1,0 +1,28 @@
+html, body {
+  height: 100%;
+}
+html { 
+
+  border-radius: 20px !important;
+ }
+body {
+
+  border-radius: 20px !important;
+}
+@font-face {
+    font-family: "Changa-Regular";
+    src: url(assets/fonts/static/Changa-Regular.ttf);
+  }
+  @font-face {
+    font-family: "Changa-SemiBold";
+    src: url(assets/fonts/static/Changa-SemiBold.ttf);
+  }
+  @font-face {
+    font-family: "Changa-ExtraBold";
+    src: url(assets/fonts/static/Changa-ExtraBold.ttf);
+  }
+  @font-face {
+    font-family: "Changa-Light";
+    src: url(assets/fonts/static/Changa-Light.ttf);
+  }
+  

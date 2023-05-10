@@ -1,0 +1,124 @@
+
+.new {
+  width: 100%;
+  display: flex;
+
+  .newContainer {
+    flex: 6;
+
+    .top,
+    .bottom {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 10px;
+      margin: 20px;
+      display: flex;
+
+      h1 {
+        color: lightgray;
+        font-size: 20px;
+      }
+
+      .left {
+        flex: 1;
+        text-align: center;
+.img {
+    width: 200px;
+    height: 200px;
+    margin-top: 50px;
+    object-fit: contain;
+    // border-radius: 120px !important;
+  }
+
+  .fileImg {
+    display: none;
+  }}
+
+      .right {
+        flex: 2;
+
+
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 30px;
+          padding: 20px;
+          justify-content: space-around;
+
+          .formInput {
+            width: 40%;
+            font-family: "Changa-Regular";
+
+            label {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              font-family: "Changa-Regular";
+              font-weight: 500;
+              padding-bottom: 10px;
+              .icon {
+                cursor: pointer;
+              }
+            }
+
+            input {
+              width:100%;
+              padding: 5px;
+              border: none;
+              border-bottom: 1px solid #EF8451;
+              font-family: "Changa-Regular" !important;
+            }
+            
+            .input:focus {
+              outline: 0;
+              box-shadow: 0 0 0 0.25rem transparent;
+              border: 0px solid #EF8451 !important;
+              // transform: scale(1.00);
+              // box-shadow: 0 0 0 0.25rem rgba(238, 168, 128, 0.61) !important;
+              border-bottom: 1px solid #EF8451 !important;
+            }
+
+            .input:hover {
+              // border: 2px solid #EF8451 !important;
+              // box-shadow: 0 0 0 2px rgba(238, 166, 117, 0.61);
+              border-bottom: 1px solid #EF8451 !important;
+            }
+
+            .select {
+                          width: 100%;
+                          padding: 5px;
+                            border: none;
+                            border-bottom: 1px solid #EF8451;
+                            font-family: "Changa-Regular" !important;
+                            margin-top: 25px !important;
+
+                        }
+                         option{
+                          font-family: "Changa-Regular" !important;
+             }
+          }
+
+          button {
+            width: 150px;
+            padding: 10px;
+            border: none;
+            background-color: #EF8451;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-left: 30%;
+            text-align: center;
+            font-family: "Changa-Regular" !important;
+            &:disabled {
+              background-color: rgba(3, 92, 92, 0.322);
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+  
