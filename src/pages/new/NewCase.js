@@ -17,6 +17,7 @@ import plus from "./../../assets/icons/+.svg"
 import minus from "./../../assets/icons/mi.svg"
 
 const NewCase = () => {
+  const [token, setToken] = useState(localStorage.getItem("token"))
   const [file, setFile] = useState("");
   const [dataCategories, setDataCategories] = useState([]);
   const [dataType, setDataType] = useState([]);
@@ -324,8 +325,9 @@ const NewCase = () => {
     const toastId = toast.loading("please wait ... ")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
-    axios.post("https://otrok.invoacdmy.com/api/dashboard/case/store", addNewCase, {
+    axios.post("https://otrok.invoacdmy.com/api/user/case/store", addNewCase, {
       headers: {
+        "Authorization": `Bearer ${token}`,
         "Content-Type": "multipart/form-data"
       }
     })
