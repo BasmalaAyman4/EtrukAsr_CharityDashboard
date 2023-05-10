@@ -75,7 +75,7 @@ export default function Login() {
         e.preventDefault()
         handleErrors()
       
-            axios.post(`https://otrok.invoacdmy.com/api/login/admin`,reqLoginData)
+            axios.post(`https://otrok.invoacdmy.com/api/login`,reqLoginData)
             .then((response)=> {
                 console.log(response)
               localStorage.setItem("token",response.data.token)
