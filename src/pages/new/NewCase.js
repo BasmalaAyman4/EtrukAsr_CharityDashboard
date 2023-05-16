@@ -15,7 +15,8 @@ import { ToastContainer } from "react-toastify";
 import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
 import plus from "./../../assets/icons/+.svg"
 import minus from "./../../assets/icons/mi.svg"
-
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 const NewCase = () => {
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [file, setFile] = useState("");
@@ -41,7 +42,8 @@ const NewCase = () => {
     statusCase :'',
     numberOfPeople:'',
     numberOfVolunteers:'',
-    numberOfCartons:''
+    numberOfCartons:'',
+    file: ''
 
     })
   useEffect(() => {
@@ -67,24 +69,55 @@ const NewCase = () => {
     let inputFileEvent = document.querySelector(".input-file-js")
     inputFileEvent.click()
   }
-  const [imageUrl, setImage] = useState(null)
+
+  const [imageUrl, setImage] = useState([])
+  const [fileImage, setFileImages] = useState()
+
   let previewUploadImage = (e) => {
-    let file = e.target.files[0];
-    if (!file) {
+    let files = e.target.files
+    setFileImages(e.target.files)
+
+    if (!files) {
       return;
     }
-    let preViewLink = URL.createObjectURL(file);
-    setImage(preViewLink)
+
+    let ImagesArray = Object.entries(e.target.files).map((e) =>
+      URL.createObjectURL(e[1])
+    );
+    console.log(ImagesArray);
+    setImage([...imageUrl, ...ImagesArray]);
+
+
+
     setFormData(prevValue => {
       return {
         ...prevValue,
-        'img': file
+        'img': files
       }
     })
+
+    console.log(formData)
   }
   const onChangeHandler = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
+  let previewUploadFile = (e) => {
+    let file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    setFormData(prevValue => {
+      return {
+        ...prevValue,
+        file: file
+      }
+    })
+  }
+  function deleteFile(e) {
+    e.preventDefault()
+    setImage([])
+  }
+
   
   const addItem = () => {
     let newfield = {
@@ -143,7 +176,16 @@ const NewCase = () => {
   addNewCase.append("name_en", formData.titleEn);
   addNewCase.append("description_ar", formData.descriptionAr);
   addNewCase.append("description_en", formData.descriptionEn);
-  addNewCase.append("image", formData.img);
+  if (formData.file) {
+    addNewCase.append("file", formData.file);
+  }
+  if (fileImage) {
+
+    [...fileImage].forEach((item, index) => {
+      addNewCase.append("images[]", item);
+
+    })
+  }
   addNewCase.append("donationtype_id", formData.donationTypeId);
   addNewCase.append("category_id", formData.caseTypeId);
   addNewCase.append("status", formData.statusCase);
@@ -351,19 +393,36 @@ const NewCase = () => {
           <div className="left">
             <input className={`fileImg  input-file-js`} ref={(e) => {
               addFileInput.current = e
-            }} id="input-file" name="img" type="file" onChange={(e) => { previewUploadImage(e) }} />
+            }} id="input-file" multiple name="img" type="file" onChange={(e) => { previewUploadImage(e) }} />
             {
-              imageUrl == null ?
+
+              imageUrl.length === 0 ?
                 <>
                   <div ref={addFile} onClick={() => { handleLogo() }}>
                     <img className="img" ref={imageFirmRef} src={addImg} alt=" اضافه صورة للحاله" />
                   </div>
                 </>
                 :
-                <div ref={addFile} onClick={() => { handleLogo() }}>
-                  <img className="img" ref={imageContentRef} src={imageUrl} alt="" />
-                </div>
+                <>
+                  <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
+
+                    {imageUrl.length > 0 &&
+                      imageUrl.map((item, index) => {
+                        return (
+                          <div ref={addFile} onClick={() => { handleLogo() }}>
+                            <img width={50} height={50} className="img" ref={imageContentRef} src={item} alt="" />
+                          </div>
+
+                        );
+                      })}
+
+                  </Carousel>
+                  <button className='btn' type="button" onClick={(e) => deleteFile(e)}>
+                    delete
+                  </button>
+                </>
             }
+
           </div>
           <div className="right">
             <form onSubmit={onSubmitHandler}>

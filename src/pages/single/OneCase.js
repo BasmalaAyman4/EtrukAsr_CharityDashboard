@@ -4,13 +4,12 @@ import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { ToastContainer } from "react-toastify";
 import { Link, useParams } from 'react-router-dom';
 import DonationList from "../../components/table/DonationList";
+import { Carousel } from "react-responsive-carousel";
 const OneCase = () => {
   const [oneCaseData, setOneCaseData] = useState({})
-
+  const [one, setOne] = useState([])
   const casesId = useParams()
 
 
@@ -19,6 +18,7 @@ const OneCase = () => {
       .then((response) => {
         console.log(response.data.case)
         setOneCaseData(response.data.case)
+        setOne(response.data.case.caseimage)
       }).catch((err) => { console.log(err) })
 
   }, [])
@@ -27,42 +27,42 @@ const OneCase = () => {
       <Sidebar />
       <div className="singleContainer">
         <Navbar />
-    
+
         <div className="top">
           <div className="left">
             <Link to={`/edit/${oneCaseData.id}`} className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
-              <img
-                src={oneCaseData.image}
-                alt=""
-                className="itemImg"
-              />
+              <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
+                {one && one.map((imgSrc, index) => (<img src={imgSrc.image} key={index} alt="" />))}
+              </Carousel>
+
+
               <div className="details">
-              <div className="detailItem">
-                <span className="itemKey">Name En: </span>
-                <span className="itemValue"> {oneCaseData?.name_en}</span>
-              </div>
-              <div className="detailItem">
-                <span className="itemKey">Name Ar: </span>
-                <span className="itemValue"> {oneCaseData?.name_ar}</span>
-              </div>
-              <div className="detailItem">
-                <span className="itemKey">Category Ar: </span>
-                <span className="itemValue"> {oneCaseData?.category?.name_ar}</span>
-              </div>
-             <div className="detailItem">
-                <span className="itemKey">Category En: </span>
-                <span className="itemValue"> {oneCaseData?.category?.name_en}</span>
-              </div>
-              <div className="detailItem">
-                <span className="itemKey">Donation Type Ar: </span>
-                <span className="itemValue"> {oneCaseData?.donationtype?.name_ar}</span>
-              </div>
-             <div className="detailItem">
-                <span className="itemKey">Donation Type En: </span>
-                <span className="itemValue"> {oneCaseData?.donationtype?.name_en}</span>
-              </div>
+                <div className="detailItem">
+                  <span className="itemKey">Name En: </span>
+                  <span className="itemValue"> {oneCaseData?.name_en}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Name Ar: </span>
+                  <span className="itemValue"> {oneCaseData?.name_ar}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Category Ar: </span>
+                  <span className="itemValue"> {oneCaseData?.category?.name_ar}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Category En: </span>
+                  <span className="itemValue"> {oneCaseData?.category?.name_en}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Donation Type Ar: </span>
+                  <span className="itemValue"> {oneCaseData?.donationtype?.name_ar}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Donation Type En: </span>
+                  <span className="itemValue"> {oneCaseData?.donationtype?.name_en}</span>
+                </div>
                 <div className="detailItem">
                   <span className="itemKey">Description En:</span>
                   <span className="itemValue">{oneCaseData?.description_en}</span>

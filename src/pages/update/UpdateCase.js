@@ -16,6 +16,7 @@ import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
 import plus from "./../../assets/icons/+.svg"
 import minus from "./../../assets/icons/mi.svg"
 import { useParams } from 'react-router-dom';
+import { Carousel } from "react-responsive-carousel";
 const UpdateCase = () => {
     const updateId = useParams()
     const [token, setToken] = useState(localStorage.getItem("token"))
@@ -39,7 +40,10 @@ const UpdateCase = () => {
         statusCase: '',
         numberOfPeople: '',
         numberOfVolunteers: '',
-        numberOfCartons: ''
+        numberOfCartons: '',
+        rejectedReasonEn: '',
+        rejectedReasonAr: '',
+        file: ''
     })
 
     const [arrayGenderEn, setArrayGenderEn] = useState([])
@@ -63,7 +67,6 @@ const UpdateCase = () => {
                 setFormData({
                     titleAr: response.data.case.name_ar,
                     titleEn: response.data.case.name_en,
-                    img: response.data.case.image,
                     descriptionEn: response.data.case.description_en,
                     descriptionAr: response.data.case.description_ar,
                     totalPrice: response.data.case.initial_amount,
@@ -72,8 +75,13 @@ const UpdateCase = () => {
                     statusCase: response.data.case.status,
                     numberOfPeople: response.data.case.initial_amount,
                     numberOfVolunteers: response.data.case.initial_amount,
-                    numberOfCartons: response.data.case.initial_amount
+                    numberOfCartons: response.data.case.initial_amount,
+                    rejectedReasonAr: response.data.case.reason_reject_en,
+                    rejectedReasonEn: response.data.case.reason_reject_ar
                 })
+                let arr = []
+                response.data?.case?.caseimage.map(i => { arr.push(i?.image) })
+                setImage(arr)
                 if (response.data.case.donationtype_id === '4') {
                     setArrayGenderEn(response.data.case.gender_en.split(","))
                     setArraySeasonEn(response.data.case.type_en.split(","))
@@ -98,20 +106,51 @@ const UpdateCase = () => {
         let inputFileEvent = document.querySelector(".input-file-js")
         inputFileEvent.click()
     }
-    const [imageUrl, setImage] = useState(null)
+    const [imageUrl, setImage] = useState([])
+    const [fileImage, setFileImages] = useState()
+
     let previewUploadImage = (e) => {
+        let files = e.target.files
+
+        setFileImages(e.target.files)
+
+        if (!files) {
+            return;
+        }
+
+        let ImagesArray = Object.entries(e.target.files).map((e) =>
+            URL.createObjectURL(e[1])
+        );
+        console.log(ImagesArray);
+        setImage([...imageUrl, ...ImagesArray]);
+
+
+
+        setFormData(prevValue => {
+            return {
+                ...prevValue,
+                'img': files
+            }
+        })
+
+        console.log(formData)
+    }
+
+    let previewUploadFile = (e) => {
         let file = e.target.files[0];
         if (!file) {
             return;
         }
-        let preViewLink = URL.createObjectURL(file);
-        setImage(preViewLink)
         setFormData(prevValue => {
             return {
                 ...prevValue,
-                'img': file
+                file: file
             }
         })
+    }
+    function deleteFile(e) {
+        e.preventDefault()
+        setImage([])
     }
     const onChangeHandler = e => {
 
@@ -290,8 +329,20 @@ const UpdateCase = () => {
     addNewCase.append("name_en", formData.titleEn);
     addNewCase.append("description_ar", formData.descriptionAr);
     addNewCase.append("description_en", formData.descriptionEn);
-    if (imageUrl) {
-        addNewCase.append("image", formData.img);
+    if (fileImage) {
+
+        [...fileImage].forEach((item, index) => {
+            addNewCase.append("images[]", item);
+
+        })
+    }
+    if (formData.statusCase === 'rejected') {
+        addNewCase.append("reason_reject_en", formData.rejectedReasonEn);
+        addNewCase.append("reason_reject_ar", formData.rejectedReasonAr);
+    }
+    if (formData.file) {
+        addNewCase.append("file", formData.file);
+
     }
     addNewCase.append("donationtype_id", formData.donationTypeId);
     addNewCase.append("category_id", formData.caseTypeId);
@@ -398,18 +449,34 @@ const UpdateCase = () => {
                     <div className="left">
                         <input className={`fileImg  input-file-js`} ref={(e) => {
                             addFileInput.current = e
-                        }} id="input-file" name="img" type="file" onChange={(e) => { previewUploadImage(e) }} />
+                        }} id="input-file" name="img" multiple type="file" onChange={(e) => { previewUploadImage(e) }} />
                         {
-                            imageUrl == null ?
+
+                            imageUrl.length === 0 ?
                                 <>
                                     <div ref={addFile} onClick={() => { handleLogo() }}>
-                                        <img className="img" ref={imageFirmRef} src={formData.img} alt=" اضافه صورة للحاله" />
+                                        <img className="img" ref={imageFirmRef} src={addImg} alt=" اضافه صورة للحاله" />
                                     </div>
                                 </>
                                 :
-                                <div ref={addFile} onClick={() => { handleLogo() }}>
-                                    <img className="img" ref={imageContentRef} src={imageUrl} alt="" />
-                                </div>
+                                <>
+                                    <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
+
+                                        {imageUrl.length > 0 &&
+                                            imageUrl.map((item, index) => {
+                                                return (
+                                                    <div ref={addFile} onClick={() => { handleLogo() }}>
+                                                        <img width={50} height={50} multiple className="img" ref={imageContentRef} src={item} alt="" />
+                                                    </div>
+
+                                                );
+                                            })}
+
+                                    </Carousel>
+                                    <button className='btn' type="button" onClick={(e) => deleteFile(e)}>
+                                        delete
+                                    </button>
+                                </>
                         }
                     </div>
                     <div className="right">
@@ -464,6 +531,40 @@ const UpdateCase = () => {
                                     <option value='rejected'>rejected</option>
 
                                 </select>
+                            </div>
+                            {formData.statusCase === 'rejected' ?
+                                <>
+                                    <div className="formInput" >
+                                        <label>Reason of rejection case in Arabic</label>
+                                        <input
+                                            name="rejectedReasonAr"
+                                            value={formData.rejectedReasonAr}
+                                            onChange={onChangeHandler}
+                                        />
+                                    </div>
+                                    <div className="formInput" >
+                                        <label>Reason of rejection case in English</label>
+                                        <input
+                                            name="rejectedReasonEn"
+                                            value={formData.rejectedReasonEn}
+                                            onChange={onChangeHandler}
+                                        />
+                                    </div>
+                                </>
+                                :
+                                null
+
+                            }
+                            <div className="formInput" >
+
+                                <input
+                                    name="file"
+                                    className={`${styles.input}`}
+                                    placeholder="الملف الملحق"
+                                    type='file'
+                                    ref={(e) => { addFileInput.current = e }}
+                                    onChange={(e) => { previewUploadFile(e) }}
+                                />
                             </div>
                             <div className="formInput" >
                                 <select
