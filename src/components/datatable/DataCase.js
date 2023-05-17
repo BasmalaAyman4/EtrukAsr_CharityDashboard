@@ -17,7 +17,7 @@ const DataCase = () => {
   useEffect(() => {
     axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/cases", {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
       }
     })
@@ -30,7 +30,12 @@ const DataCase = () => {
   }, [])
   function handleDeleteCase(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`)
+    axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`, {}, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
       .then(response => {
         toast.success(response.data.message)
         console.log(response)

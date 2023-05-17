@@ -9,37 +9,38 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
 const NewCategory = () => {
-    const [formData, setFormData] = useState({
-        nameAr: '',
-        nameEn: '',
+  const [formData, setFormData] = useState({
+    nameAr: '',
+    nameEn: '',
 
+  })
+  const onChangeHandler = e => {
+
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    console.log(formData, "form")
+  }
+  const addNewCase = new FormData();
+  addNewCase.append("name_ar", formData.nameAr);
+  addNewCase.append("name_en", formData.nameEn);
+  const onSubmitHandler = (e) => {
+    const toastId = toast.loading("please waiting ...")
+    setTimeout(() => { toast.dismiss(toastId); }, 1000);
+    e.preventDefault()
+    axios.post("https://otrok.invoacdmy.com/api/dashboard/donationtype/store", addNewCase, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
     })
-    const onChangeHandler = e => {
+      .then(response => {
+        toast.success(response.data.message)
+        console.log(response)
+      }
+      ).catch((err) => { toast.error(err.response.data.message) })
 
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-        console.log(formData, "form")
-    }
-    const addNewCase = new FormData();
-    addNewCase.append("name_ar", formData.nameAr);
-    addNewCase.append("name_en", formData.nameEn);
-    const onSubmitHandler = (e) => {
-        const toastId = toast.loading("please waiting ...")
-        setTimeout(() => { toast.dismiss(toastId); }, 1000);
-        e.preventDefault()
-        axios.post("https://otrok.invoacdmy.com/api/dashboard/donationtype/store", addNewCase, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-            .then(response => {
-                toast.success(response.data.message)
-                console.log(response)
-            }
-            ).catch((err) => { toast.error(err.response.data.message) })
-
-    }
-    return (
-        <div className="new">
+  }
+  return (
+    <div className="new">
       <Sidebar />
       <div className="newContainer">
         <Navbar />
@@ -47,10 +48,10 @@ const NewCategory = () => {
           <h1>Add New Category</h1>
         </div>
         <div className="bottom">
-   
+
           <div className="right">
             <form onSubmit={onSubmitHandler}>
-              
+
 
               <div className="formInput" >
                 <label>Name of Donation type in Arabic</label>
@@ -78,8 +79,8 @@ const NewCategory = () => {
         </div>
       </div>
     </div>
-      
-    );
+
+  );
 };
 
 export default NewCategory;

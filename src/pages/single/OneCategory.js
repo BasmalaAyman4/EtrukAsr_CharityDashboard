@@ -15,7 +15,12 @@ const OneCategory = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${categoryId.categoryId}`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${categoryId.categoryId}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
       .then((response) => {
         console.log(response.data.Category)
         setOneCategoryData(response.data.Category)
@@ -27,7 +32,7 @@ const OneCategory = () => {
       <Sidebar />
       <div className="singleContainer">
         <Navbar />
-    
+
         <div className="top">
           <div className="left">
             <Link to={`/editCategory/${oneCategoryData.id}`} className="editButton">Edit</Link>
@@ -39,15 +44,15 @@ const OneCategory = () => {
                 className="itemImg"
               />
               <div className="details">
-              <div className="detailItem">
-                <span className="itemKey">Name En: </span>
-                <span className="itemValue"> {oneCategoryData?.name_en}</span>
-              </div>
-              <div className="detailItem">
-                <span className="itemKey">Name Ar: </span>
-                <span className="itemValue"> {oneCategoryData?.name_ar}</span>
-              </div>
-     
+                <div className="detailItem">
+                  <span className="itemKey">Name En: </span>
+                  <span className="itemValue"> {oneCategoryData?.name_en}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Name Ar: </span>
+                  <span className="itemValue"> {oneCategoryData?.name_ar}</span>
+                </div>
+
                 <div className="detailItem">
                   <span className="itemKey">Description En:</span>
                   <span className="itemValue">{oneCategoryData?.description_en}</span>
@@ -56,8 +61,8 @@ const OneCategory = () => {
                   <span className="itemKey">Description Ar:</span>
                   <span className="itemValue">{oneCategoryData?.description_ar}</span>
                 </div>
-              
-               
+
+
 
               </div>
             </div>

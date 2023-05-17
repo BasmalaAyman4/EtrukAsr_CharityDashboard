@@ -1,7 +1,7 @@
 
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import {  useState, useRef } from "react";
+import { useState, useRef } from "react";
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
@@ -10,10 +10,10 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
 
 const NewCategory = () => {
-      
+
   const [file, setFile] = useState("");
-//   const [dataCategories, setDataCategories] = useState([]);
-//   const [dataType, setDataType] = useState([]);
+  //   const [dataCategories, setDataCategories] = useState([]);
+  //   const [dataType, setDataType] = useState([]);
   const [formData, setFormData] = useState({
     nameEn: '',
     nameAr: '',
@@ -21,21 +21,21 @@ const NewCategory = () => {
     descriptionEn: '',
     descriptionAr: '',
   })
-//   useEffect(() => {
-//     axios.get(`http://otrok.invoacdmy.com/api/dashboard/category/index`)
-//       .then(response => {
-//         setDataCategories(response.data.Categories)
-//       }
-//       ).catch((err) => { console.log(err) })
+  //   useEffect(() => {
+  //     axios.get(`http://otrok.invoacdmy.com/api/dashboard/category/index`)
+  //       .then(response => {
+  //         setDataCategories(response.data.Categories)
+  //       }
+  //       ).catch((err) => { console.log(err) })
 
-//     axios.get(`http://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
-//       .then(response => {
-//         setDataType(response.data.Donationtypes)
-//         console.log(response)
-//       }
-//       ).catch((err) => { console.log(err) })
+  //     axios.get(`http://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
+  //       .then(response => {
+  //         setDataType(response.data.Donationtypes)
+  //         console.log(response)
+  //       }
+  //       ).catch((err) => { console.log(err) })
 
-//   }, [])
+  //   }, [])
   const addFile = useRef(null)
   const addFileInput = useRef(null)
   const imageContentRef = useRef(null);
@@ -71,14 +71,15 @@ const NewCategory = () => {
   addNewCategory.append("description_ar", formData.descriptionAr);
   addNewCategory.append("description_en", formData.descriptionEn);
   addNewCategory.append("image", formData.img);
-  
+
   const onSubmitHandler = (e) => {
-  
+
     const toastId = toast.loading("please wait ... ")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
     axios.post("https://otrok.invoacdmy.com/api/dashboard/category/store", addNewCategory, {
       headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
       }
     })
@@ -144,7 +145,7 @@ const NewCategory = () => {
                   onChange={onChangeHandler}
                 />
               </div>
-           
+
               <div className="formInput" >
                 <label> Description of Category in Arabic </label>
                 <input
@@ -162,8 +163,8 @@ const NewCategory = () => {
                   onChange={onChangeHandler}
                 />
               </div>
-             
-           
+
+
               <button type="submit">
                 Send
               </button>
@@ -179,63 +180,63 @@ const NewCategory = () => {
 
 
 
-    // const [formData, setFormData] = useState({
-    //     titleAr: '',
-    //     titleEn: '',
+  // const [formData, setFormData] = useState({
+  //     titleAr: '',
+  //     titleEn: '',
 
-    // })
-    // const onChangeHandler = e => {
+  // })
+  // const onChangeHandler = e => {
 
-    //     setFormData({ ...formData, [e.target.name]: e.target.value })
-    //     console.log(formData, "form")
-    // }
-    // const addNewCase = new FormData();
-    // addNewCase.append("name_ar", formData.titleAr);
-    // addNewCase.append("name_en", formData.titleEn);
-    // const onSubmitHandler = (e) => {
-    //     const toastId = toast.loading("...انتظر قليلا")
-    //     setTimeout(() => { toast.dismiss(toastId); }, 1000);
-    //     e.preventDefault()
-    //     axios.post("http://otrok.invoacdmy.com/api/dashboard/category/store", addNewCase, {
-    //         headers: {
-    //             "Content-Type": "multipart/form-data"
-    //         }
-    //     })
-    //         .then(response => {
-    //             toast.success(response.data.message)
-    //             console.log(response)
-    //         }
-    //         ).catch((err) => { toast.error(err.response.data.message) })
+  //     setFormData({ ...formData, [e.target.name]: e.target.value })
+  //     console.log(formData, "form")
+  // }
+  // const addNewCase = new FormData();
+  // addNewCase.append("name_ar", formData.titleAr);
+  // addNewCase.append("name_en", formData.titleEn);
+  // const onSubmitHandler = (e) => {
+  //     const toastId = toast.loading("...انتظر قليلا")
+  //     setTimeout(() => { toast.dismiss(toastId); }, 1000);
+  //     e.preventDefault()
+  //     axios.post("http://otrok.invoacdmy.com/api/dashboard/category/store", addNewCase, {
+  //         headers: {
+  //             "Content-Type": "multipart/form-data"
+  //         }
+  //     })
+  //         .then(response => {
+  //             toast.success(response.data.message)
+  //             console.log(response)
+  //         }
+  //         ).catch((err) => { toast.error(err.response.data.message) })
 
-    // }
-    // return (
-    //     <div className={`${style.new}`}>
-    //         <Sidebar />
-    //         <div className={`${style.newContainer}`}>
-    //             <Navbar />
-    //             <div className={`${style.topCase}`}>
-    //                 <h1>Add New Category</h1>
-    //             </div>
-    //             <Form className={`${style.bottomCase}`} onSubmit={onSubmitHandler}>
-    //                 <div className={`${style.rightCategory}`}>
+  // }
+  // return (
+  //     <div className={`${style.new}`}>
+  //         <Sidebar />
+  //         <div className={`${style.newContainer}`}>
+  //             <Navbar />
+  //             <div className={`${style.topCase}`}>
+  //                 <h1>Add New Category</h1>
+  //             </div>
+  //             <Form className={`${style.bottomCase}`} onSubmit={onSubmitHandler}>
+  //                 <div className={`${style.rightCategory}`}>
 
-    //                     <Form.Group className="mb-3" controlId="formBasicEmail" >
-    //                         <Form.Control name="titleAr" placeholder="نوع الحالة بالعربي" className={`${style.input} ${style.inputCategory}`} onChange={onChangeHandler} value={formData.titleAr} />
-    //                     </Form.Group>
-    //                     <Form.Group className="mb-3" controlId="formBasicEmail" >
-    //                         <Form.Control name="titleEn" placeholder="    نوع الحالة بالانجيزية" className={`${style.input} ${style.inputCategory}`} onChange={onChangeHandler} value={formData.titleEn} />
-    //                     </Form.Group>
-    //                 </div>
-    //                 <Button type="submit" className={`${style.btn}`}>
-    //                     اضافة الان
-    //                 </Button>
+  //                     <Form.Group className="mb-3" controlId="formBasicEmail" >
+  //                         <Form.Control name="titleAr" placeholder="نوع الحالة بالعربي" className={`${style.input} ${style.inputCategory}`} onChange={onChangeHandler} value={formData.titleAr} />
+  //                     </Form.Group>
+  //                     <Form.Group className="mb-3" controlId="formBasicEmail" >
+  //                         <Form.Control name="titleEn" placeholder="    نوع الحالة بالانجيزية" className={`${style.input} ${style.inputCategory}`} onChange={onChangeHandler} value={formData.titleEn} />
+  //                     </Form.Group>
+  //                 </div>
+  //                 <Button type="submit" className={`${style.btn}`}>
+  //                     اضافة الان
+  //                 </Button>
 
-    //             </Form>
+  //             </Form>
 
-    //         </div>
-    //         <ToastContainer />
-    //     </div >
-    // );
+  //         </div>
+  //         <ToastContainer />
+  //     </div >
+  // );
 };
 
 export default NewCategory;

@@ -16,7 +16,7 @@ const DataEvent = () => {
   useEffect(() => {
     axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/events", {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
       }
     })
@@ -29,7 +29,12 @@ const DataEvent = () => {
   }, [])
   function handleDelete(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`)
+    axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`, {}, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
       .then(response => {
         toast.success(response.data.message)
         console.log(response)

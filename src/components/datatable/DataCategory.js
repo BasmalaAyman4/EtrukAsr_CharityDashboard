@@ -13,16 +13,27 @@ const DataCategory = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/category/index")
+        axios.get("https://otrok.invoacdmy.com/api/user/category/index?lang=en", {
+            headers: {
+                
+                "Content-Type": "multipart/form-data"
+            }
+        })
             .then(response => {
                 setDataCategories(response.data.Categories)
+                console.log(response.data.Categories,"kk")
             }
             ).catch((err) => { console.log(err) })
       
 
     }, [])
     function handleDeleteCase(id) {
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/destroy/${id}`)
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/destroy/${id}`,'', {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
         .then(response => {
           toast.success(response.data.message)
           console.log(response)
@@ -42,7 +53,7 @@ const DataCategory = () => {
                         <Link to={`/categories/${params.row.id}`}  style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
-                        <button
+                        {/* <button
                             onClick={(e)=>{handleDeleteCase(params.row.id)}}
                             className="deleteButton"
                             >
@@ -50,7 +61,7 @@ const DataCategory = () => {
                             </button>
                             <Link to={`/editCategory/${params.row.id}`} style={{ textDecoration: "none" }}>
                                <div className="updateButton">Update</div>
-                            </Link>
+                            </Link> */}
                     </div>
                 );
             },
@@ -59,10 +70,10 @@ const DataCategory = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Category
-                <Link to="/categories/new" className="link">
+                Category
+                {/* <Link to="/categories/new" className="link">
                     Add New
-                </Link>
+                </Link> */}
             </div>
             <DataGrid
                 key={seed}

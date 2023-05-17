@@ -10,10 +10,15 @@ const DataType = () => {
     const [data, setDataTypes] = useState([]);
     const [seed, setSeed] = useState(1);
     const reset = () => {
-         setSeed(Math.random());
-     }
+        setSeed(Math.random());
+    }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/donationtype/index")
+        axios.get("https://otrok.invoacdmy.com/api/user/donation/donation/types?lang=ar", {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
             .then(response => {
                 setDataTypes(response.data.Donationtypes)
             }
@@ -21,14 +26,19 @@ const DataType = () => {
     }, [])
 
     function handleDeleteCase(id) {
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/donationtype/destroy/${id}`)
-        .then(response => {
-          toast.success(response.data.message)
-          console.log(response)
-        }
-        ).catch((err) => { toast.error('there are cases related to this category please delete them first') })
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/donationtype/destroy/${id}`, {}, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
+            .then(response => {
+                toast.success(response.data.message)
+                console.log(response)
+            }
+            ).catch((err) => { toast.error('there are cases related to this category please delete them first') })
         reset()
-      }
+    }
 
     const actionColumn = [
         {
@@ -38,18 +48,18 @@ const DataType = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/donaionTypes/${params.row.id}`}  style={{ textDecoration: "none" }}>
+                        <Link to={`/donaionTypes/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
-                        <div
+                        {/*<div
                             className="deleteButton"
-                            onClick={(e)=>{handleDeleteCase(params.row.id)}}
+                            onClick={(e) => { handleDeleteCase(params.row.id) }}
                         >
                             Delete
                         </div>
-                        <Link to={`/editType/${params.row.id}`} style={{ textDecoration: "none" }}>
-                               <div className="updateButton">Update</div>
-                            </Link>
+                         <Link to={`/editType/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="updateButton">Update</div>
+                        </Link> */}
                     </div>
                 );
             },
@@ -58,10 +68,10 @@ const DataType = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New DonationType
-                <Link to="/donaionTypes/new" className="link">
+                DonationType
+                {/* <Link to="/donaionTypes/new" className="link">
                     Add New
-                </Link>
+                </Link> */}
             </div>
             <DataGrid
                 className="datagrid"
@@ -71,7 +81,7 @@ const DataType = () => {
                 rowsPerPageOptions={[8]}
                 checkboxSelection
             />
-                <ToastContainer />
+            <ToastContainer />
         </div>
     );
 };

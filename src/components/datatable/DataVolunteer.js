@@ -9,83 +9,89 @@ import { userColumns } from '../../dataVolunteerTablesource';
 
 
 const DataVolunteer = () => {
-    const [token ,setToken] = useState(localStorage.getItem('token'))
-    const [data, setData] = useState([]);
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const [data, setData] = useState([]);
 
-    const [seed, setSeed] = useState(1);
-    const reset = () => {
-         setSeed(Math.random());
-     }
-     
-    useEffect(() => {
-      axios.get("https://otrok.invoacdmy.com/api/dashboard/volunteer/index")
-        .then(response => {
-          setData(response.data.volunteers)
+  const [seed, setSeed] = useState(1);
+  const reset = () => {
+    setSeed(Math.random());
+  }
 
-        }
-        ).catch((err) => { console.log(err) })
-        reset()
-    }, [])
+  useEffect(() => {
+    axios.get("https://otrok.invoacdmy.com/api/dashboard/volunteer/index", {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
+      .then(response => {
+        setData(response.data.volunteers)
 
-    function handleAcceptDonation(id) {
-  
-      axios.post(`https://otrok.invoacdmy.com/api/dashboard/donation/accept/${id}`,{},
+      }
+      ).catch((err) => { console.log(err) })
+    reset()
+  }, [])
+
+  function handleAcceptDonation(id) {
+
+    axios.post(`https://otrok.invoacdmy.com/api/dashboard/donation/accept/${id}`, {},
       {
-        headers: 
+        headers:
         {
+          "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
           "Authorization": `Bearer ${token}`,
         }
       })
       .then(response => {
-     
+
         toast.success(response.data.message)
-       console.log(response)
+        console.log(response)
       }
       ).catch((err) => {
-    
+
         toast.error(err.response.data.message)
-       })
-    
-    }
-    const actionColumn = [
-      {
-        field: "action",
-        headerName: "Action",
-        width: 100,
-        renderCell: (params) => {
-          
-          return (
-            <div className="cellAction">
-              <Link to={`/volunteer/${params.row.id}`} style={{ textDecoration: "none" }}>
-                <div className="viewButton">View</div>
-              </Link>
-             
-            
-           
-              
-         
-            </div>
-          );
-        },
+      })
+
+  }
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 100,
+      renderCell: (params) => {
+
+        return (
+          <div className="cellAction">
+            <Link to={`/volunteer/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <div className="viewButton">View</div>
+            </Link>
+
+
+
+
+
+          </div>
+        );
       },
-    ];
-    return (
-      <div className="datatable">
-        <div className="datatableTitle">
-           Donations
-         
-        </div>
-        <DataGrid
-         key={seed}
-          className="datagrid"
-          rows={data}
-          columns={userColumns.concat(actionColumn)}
-          pageSize={8}
-          rowsPerPageOptions={[8]}
-          checkboxSelection
-        />
-          <ToastContainer />
+    },
+  ];
+  return (
+    <div className="datatable">
+      <div className="datatableTitle">
+        Donations
+
       </div>
+      <DataGrid
+        key={seed}
+        className="datagrid"
+        rows={data}
+        columns={userColumns.concat(actionColumn)}
+        pageSize={8}
+        rowsPerPageOptions={[8]}
+        checkboxSelection
+      />
+      <ToastContainer />
+    </div>
   )
 }
 

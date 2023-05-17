@@ -5,124 +5,126 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import BsCalendarEvent from "@mui/icons-material/CalendarTodayOutlined"
+import AiFillBankIcon from '@mui/icons-material/Home'
+import PaidIcon from '@mui/icons-material/Paid';
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Widget = ({ type }) => {
-  const [amount, setAmount] = useState(null);
+  const [count, setCount] = useState(null);
+
   const [diff, setDiff] = useState(null);
-  let data;
+  let data
 
-  // switch (type) {
-  //   case "user":
-  //     data = {
-  //       title: "USERS",
-  //       isMoney: false,
-  //       link: "See all users",
-  //       query:"users",
-  //       icon: (
-  //         <PersonOutlinedIcon
-  //           className="icon"
-  //           style={{
-  //             color: "crimson",
-  //             backgroundColor: "rgba(255, 0, 0, 0.2)",
-  //           }}
-  //         />
-  //       ),
-  //     };
-  //     break;
-  //   case "order":
-  //     data = {
-  //       title: "ORDERS",
-  //       isMoney: false,
-  //       link: "View all orders",
-  //       icon: (
-  //         <ShoppingCartOutlinedIcon
-  //           className="icon"
-  //           style={{
-  //             backgroundColor: "rgba(218, 165, 32, 0.2)",
-  //             color: "goldenrod",
-  //           }}
-  //         />
-  //       ),
-  //     };
-  //     break;
-  //   case "earning":
-  //     data = {
-  //       title: "EARNINGS",
-  //       isMoney: true,
-  //       link: "View net earnings",
-  //       icon: (
-  //         <MonetizationOnOutlinedIcon
-  //           className="icon"
-  //           style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
-  //         />
-  //       ),
-  //     };
-  //     break;
-  //   case "product":
-  //     data = {
-  //       title: "PRODUCTS",
-  //       query:"products",
-  //       link: "See details",
-  //       icon: (
-  //         <AccountBalanceWalletOutlinedIcon
-  //           className="icon"
-  //           style={{
-  //             backgroundColor: "rgba(128, 0, 128, 0.2)",
-  //             color: "purple",
-  //           }}
-  //         />
-  //       ),
-  //     };
-  //     break;
-  //   default:
-  //     break;
-  // }
+  switch (type) {
+    case "cases":
+      data = {
+        title: "CASES",
+        isMoney: false,
+        link: "See all cases",
+        linkSrc: '/cases',
+        seqLink: 'https://otrok.invoacdmy.com/api/dashboard/charity/cases',
+        query: "cases",
+        icon: (
+          <PersonOutlinedIcon
+            className="icon"
+            style={{
+              color: "crimson",
+              backgroundColor: "rgba(255, 0, 0, 0.2)",
+            }}
+          />
+        ),
+      };
+      break;
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const today = new Date();
-  //     const lastMonth = new Date(new Date().setMonth(today.getMonth() - 1));
-  //     const prevMonth = new Date(new Date().setMonth(today.getMonth() - 2));
+    case "charities":
+      data = {
+        title: "CHARITIES",
+        isMoney: false,
+        linkSrc: '/charities',
+        link: "View all charities",
+        seqLink: 'http://otrok.invoacdmy.com/api/dashboard/charity/index',
+        icon: (
+          <AiFillBankIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(128, 0, 128, 0.2)",
+              color: "purple",
+            }}
+          />
+        ),
+      };
+      break;
+    case "events":
+      data = {
+        title: "EVENTS",
+        query: "events",
+        link: "See all events",
+        linkSrc: '/event',
+        seqLink: 'https://otrok.invoacdmy.com/api/dashboard/charity/events',
+        icon: (
+          <BsCalendarEvent
+            className="icon"
+            style={{
+              backgroundColor: "rgba(0, 128, 0, 0.2)",
+              color: "green"
+            }}
+          />
+        ),
+      };
+      break;
+    case "donations":
+      data = {
+        title: "DONATIONS",
+        query: "donations",
+        link: "See all donations",
+        linkSrc: '/donation',
+        seqLink: 'https://otrok.invoacdmy.com/api/dashboard/charity/donations',
+        icon: (
+          <PaidIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(218, 165, 32, 0.2)",
+              color: "goldenrod",
+            }}
+          />
+        ),
+      };
+      break;
+    default:
+      break;
+  }
 
-  //     const lastMonthQuery = query(
-  //       collection(db, data.query),
-  //       where("timeStamp", "<=", today),
-  //       where("timeStamp", ">", lastMonth)
-  //     );
-  //     const prevMonthQuery = query(
-  //       collection(db, data.query),
-  //       where("timeStamp", "<=", lastMonth),
-  //       where("timeStamp", ">", prevMonth)
-  //     );
+  useEffect(() => {
+    axios.get(data.seqLink, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
 
-  //     const lastMonthData = await getDocs(lastMonthQuery);
-  //     const prevMonthData = await getDocs(prevMonthQuery);
+      }
+    })
+      .then((response) => {
+        console.log(response.data.count, "jh")
+        setCount(response.data?.count)
 
-  //     setAmount(lastMonthData.docs.length);
-  //     setDiff(
-  //       ((lastMonthData.docs.length - prevMonthData.docs.length) / prevMonthData.docs.length) *
-  //         100
-  //     );
-  //   };
-  //   fetchData();
-  // }, []);
+      }).catch((err) => { console.log(err) })
+
+  }, []);
 
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">gygy</span>
+        <span className="title">{data?.title}</span>
         <span className="counter">
-          hjkhukj
+          {count}
         </span>
-        <span className="link">tdrt</span>
+        <Link style={{ TextDecoder: 'none' }} to={data?.linkSrc} className="link">{data?.link}</Link>
       </div>
       <div className="right">
-        <div className="percentage  negative">
-          <KeyboardArrowDownIcon/> <KeyboardArrowUpIcon/> 
-          50 %
-        </div>
-         dgfdgf
+        {data.icon}
+
       </div>
     </div>
   );

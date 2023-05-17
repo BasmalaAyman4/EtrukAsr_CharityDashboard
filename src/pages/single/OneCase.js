@@ -14,9 +14,14 @@ const OneCase = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
       .then((response) => {
-        console.log(response.data.case)
+        console.log(response.data, "kkkkk")
         setOneCaseData(response.data.case)
         setOne(response.data.case.caseimage)
       }).catch((err) => { console.log(err) })

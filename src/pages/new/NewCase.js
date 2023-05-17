@@ -47,18 +47,27 @@ const NewCase = () => {
 
     })
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
-      .then(response => {
-        setDataCategories(response.data.Categories)
-      }
-      ).catch((err) => { console.log(err) })
+    axios.get(`https://otrok.invoacdmy.com/api/user/category/index?lang=en`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
 
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
-      .then(response => {
-        setDataType(response.data.Donationtypes)
-        console.log(response)
       }
-      ).catch((err) => { console.log(err) })
+    }).then(response => {
+      setDataCategories(response.data.Categories)
+    }
+    ).catch((err) => { console.log(err) })
+
+    axios.get(`https://otrok.invoacdmy.com/api/user/donation/donation/types?lang=ar`, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+
+      }
+    }).then(response => {
+      setDataType(response.data.Donationtypes)
+      console.log(response.data.Donationtypes,"lll")
+    }
+    ).catch((err) => { console.log(err) })
 
   }, [])
   const addFile = useRef(null)
@@ -369,7 +378,7 @@ const NewCase = () => {
     e.preventDefault()
     axios.post("https://otrok.invoacdmy.com/api/user/case/store", addNewCase, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
       }
     })
@@ -487,7 +496,7 @@ const NewCase = () => {
                 >
                   <option >Case Type</option>
                   {dataCategories && dataCategories.map(category =>
-                    <option value={category.id} key={category.id}>{category.name_en}</option>
+                    <option value={category.id} key={category.id}>{category.name}</option>
                   )}
                 </select>
               </div>
@@ -501,7 +510,7 @@ const NewCase = () => {
                 >
                   <option > Donation Type</option>
                   {dataType && dataType.map(type =>
-                    <option value={type.id} key={type.id} >{type.name_en}</option>
+                    <option value={type.id} key={type.id} >{type.name}</option>
                   )}
                 </select>
               </div>

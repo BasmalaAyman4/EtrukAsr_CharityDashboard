@@ -13,7 +13,7 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AiFillBankIcon from '@mui/icons-material/Home'
-import {AiOutlineGold} from 'react-icons/ai'
+import { AiOutlineGold } from 'react-icons/ai'
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -83,31 +83,25 @@ const Sidebar = () => {
               <span>Events</span>
             </li>
           </Link>
-          <Link to="/acution" style={{ textDecoration: "none" }}>
-            <li>
-              <GavelIcon className="icon" />
-              <span>Acutions</span>
-            </li>
-          </Link>
           <p className="title">USEFUL</p>
           <Link to="/charities" style={{ textDecoration: "none" }}>
-          <li>
-            <AiFillBankIcon className="icon" />
-            <span>Charities</span>
-          </li>
+            <li>
+              <AiFillBankIcon className="icon" />
+              <span>Charities</span>
+            </li>
           </Link>
           <Link to="/gold" style={{ textDecoration: "none" }}>
-          <li>
-            <AiOutlineGold className="icon" />
-            <span>Gold Price</span>
-          </li>
+            <li>
+              <AiOutlineGold className="icon" />
+              <span>Gold Price</span>
+            </li>
           </Link>
           <p className="title">USER</p>
           <Link to="/profile" style={{ textDecoration: "none" }}>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
+            <li>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Profile</span>
+            </li>
           </Link>
           <li onClick={() => { Logout() }}>
             <ExitToAppIcon className="icon" />

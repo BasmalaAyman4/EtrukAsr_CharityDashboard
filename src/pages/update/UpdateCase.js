@@ -49,20 +49,35 @@ const UpdateCase = () => {
     const [arrayGenderEn, setArrayGenderEn] = useState([])
     const [arraySeasonEn, setArraySeasonEn] = useState([])
     useEffect(() => {
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
             .then(response => {
                 setDataCategories(response.data.Categories)
             }
             ).catch((err) => { console.log(err) })
 
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
             .then(response => {
                 setDataType(response.data.Donationtypes)
                 console.log(response)
             }
             ).catch((err) => { console.log(err) })
 
-        axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/${updateId.updateId}`)
+        axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/${updateId.updateId}`, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
             .then((response) => {
                 setFormData({
                     titleAr: response.data.case.name_ar,
@@ -426,7 +441,7 @@ const UpdateCase = () => {
         e.preventDefault()
         axios.post(`https://otrok.invoacdmy.com/api/user/case/update/${updateId.updateId}`, addNewCase, {
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
                 "Content-Type": "multipart/form-data"
             }
         })
