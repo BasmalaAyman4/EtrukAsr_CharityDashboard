@@ -13,7 +13,7 @@ const DataCategory = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/user/category/index?lang=en", {
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/all/categories", {
             headers: {
                 
                 "Content-Type": "multipart/form-data"

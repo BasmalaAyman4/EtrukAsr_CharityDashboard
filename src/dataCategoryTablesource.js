@@ -13,15 +13,15 @@ export const userColumns = [
     },
   },
   {
-    field: "name",
+    field: "name_en",
     headerName: "Name En",
     width: 200,
-  }/* ,
+  },
   {
     field: "name_ar",
     headerName: "Name Ar",
     width: 200,
-  }, */
+  },
 
 
 

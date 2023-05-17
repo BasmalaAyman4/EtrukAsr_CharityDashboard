@@ -13,9 +13,9 @@ const DataType = () => {
         setSeed(Math.random());
     }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/user/donation/donation/types?lang=ar", {
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/all/donationtypes", {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+
                 "Content-Type": "multipart/form-data"
             }
         })

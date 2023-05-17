@@ -14,16 +14,16 @@ const OneCase = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`, {
+    axios.get(`https://otrok.invoacdmy.com/api/user/case/show/${casesId.caseId}`, {
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+
         "Content-Type": "multipart/form-data"
       }
     })
       .then((response) => {
-        console.log(response.data, "kkkkk")
-        setOneCaseData(response.data.case)
-        setOne(response.data.case.caseimage)
+        console.log(response.data.case, "kkkkk")
+        setOneCaseData(response.data?.case)
+        setOne(response.data.case?.caseimage)
       }).catch((err) => { console.log(err) })
 
   }, [])
@@ -39,18 +39,18 @@ const OneCase = () => {
             <h1 className="title">Information</h1>
             <div className="item">
               <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
-                {one && one.map((imgSrc, index) => (<img src={imgSrc.image} key={index} alt="" />))}
+                {one && one.map((imgSrc, index) => (<img src={imgSrc?.image} key={index} alt="" />))}
               </Carousel>
 
 
               <div className="details">
                 <div className="detailItem">
                   <span className="itemKey">Name En: </span>
-                  <span className="itemValue"> {oneCaseData?.name_en}</span>
+                  <span className="itemValue"> {oneCaseData?.name}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Name Ar: </span>
-                  <span className="itemValue"> {oneCaseData?.name_ar}</span>
+                  <span className="itemValue"> {oneCaseData?.name}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Category Ar: </span>
@@ -70,11 +70,11 @@ const OneCase = () => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Description En:</span>
-                  <span className="itemValue">{oneCaseData?.description_en}</span>
+                  <span className="itemValue">{oneCaseData?.description}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Description Ar:</span>
-                  <span className="itemValue">{oneCaseData?.description_ar}</span>
+                  <span className="itemValue">{oneCaseData?.description}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Required Amount :</span>

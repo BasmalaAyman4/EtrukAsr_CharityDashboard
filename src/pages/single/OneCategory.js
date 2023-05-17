@@ -15,7 +15,7 @@ const OneCategory = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${categoryId.categoryId}`, {
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/show/category/${categoryId.categoryId}?lang=ar`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
