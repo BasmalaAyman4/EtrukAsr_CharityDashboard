@@ -57,7 +57,7 @@ export default function Login() {
       const handleRedirect = async () => {
               await delay(7000);
            
-          if(localStorage.getItem("token")){
+          if(localStorage.getItem("tokenC")){
               navigate("/")
               window.location.reload();
             
@@ -78,7 +78,8 @@ export default function Login() {
             axios.post(`https://otrok.invoacdmy.com/api/login`,reqLoginData)
             .then((response)=> {
                 console.log(response)
-              localStorage.setItem("token",response.data.token)
+              localStorage.setItem("tokenC",response.data.token)
+              localStorage.setItem("User",response.data.user.user_type)
               toast.success("Successfully Logged!")
               handleRedirect()
             })

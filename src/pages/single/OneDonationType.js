@@ -14,7 +14,7 @@ const OneDonationType = () => {
   
   
     useEffect(() => {
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/show/${donationTypeId.donationId}`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/show/${donationTypeId.donationId}`,)
         .then((response) => {
           console.log(response.data.Donationtype)
           setOneDonationType(response.data.Donationtype)

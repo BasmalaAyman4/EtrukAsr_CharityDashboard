@@ -28,6 +28,7 @@ import NewEvent from "./pages/new/NewEvent";
 import OneEvent from "./pages/single/OneEvent";
 import ListEvent from "./pages/list/ListEvent";
 import UpdateEvent from "./pages/update/UpdateEvent";
+import UpdateProfile from "./pages/UpdateProfile/UpdateProfile";
 
 
 function App() {
@@ -263,10 +264,20 @@ function App() {
               <Route 
                 path=":updateEventId"
                 element={
-                  <UpdateEvent />
+                  <RequireAuth>
+                    <UpdateEvent />
+                  </RequireAuth>
                 }
               />
             </Route>
+            <Route
+                path="profile"
+                element={
+                  <RequireAuth>
+                    <UpdateProfile />
+                  </RequireAuth>
+                }
+              />
             
           </Route>
         </Routes>

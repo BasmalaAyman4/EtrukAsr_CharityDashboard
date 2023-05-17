@@ -2,7 +2,7 @@ const AuthReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN": {
       return {
-        currentUser: localStorage.getItem('token')
+        currentUser: localStorage.getItem('tokenC')
       };
     }
     case "LOGOUT": {

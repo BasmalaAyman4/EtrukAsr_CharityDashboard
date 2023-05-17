@@ -6,7 +6,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { DarkModeContextProvider } from "./context/darkModeContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'react-phone-number-input/style.css'
 ReactDOM.render(
   <React.StrictMode>
     <DarkModeContextProvider>

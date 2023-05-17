@@ -7,17 +7,32 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    
+    axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/showto/update", {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
+      .then(response => {
+        console.log(response.data.charity,'ch')
+        setUserData(response.data.charity)
+      }
+      ).catch((err) => { console.log(err) })
 
+  }, [])
   return (
     <div className="navbar">
       <div className="wrapper">
         <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
+          
         </div>
         <div className="items">
           <div className="item">
@@ -46,7 +61,7 @@ const Navbar = () => {
           </div>
           <div className="item">
             <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src={userData.image}
               alt=""
               className="avatar"
             />
