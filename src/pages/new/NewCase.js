@@ -47,7 +47,7 @@ const NewCase = () => {
 
     })
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/user/category/index?lang=en`, {
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/all/categories`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -58,7 +58,7 @@ const NewCase = () => {
     }
     ).catch((err) => { console.log(err) })
 
-    axios.get(`https://otrok.invoacdmy.com/api/user/donation/donation/types?lang=ar`, {
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/all/donationtypes`, {
       headers: {
         "Content-Type": "multipart/form-data"
 
@@ -496,7 +496,7 @@ const NewCase = () => {
                 >
                   <option >Case Type</option>
                   {dataCategories && dataCategories.map(category =>
-                    <option value={category.id} key={category.id}>{category.name}</option>
+                    <option value={category.id} key={category.id}>{category.name_en}</option>
                   )}
                 </select>
               </div>
@@ -510,7 +510,7 @@ const NewCase = () => {
                 >
                   <option > Donation Type</option>
                   {dataType && dataType.map(type =>
-                    <option value={type.id} key={type.id} >{type.name}</option>
+                    <option value={type.id} key={type.id} >{type.name_en}</option>
                   )}
                 </select>
               </div>

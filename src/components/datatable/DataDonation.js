@@ -60,9 +60,9 @@ const DataDonation = () => {
 
         return (
           <div className="cellAction">
-            <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
+            {/* <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
-            </Link>
+            </Link> */}
 
 
             <button onClick={(e) => { handleAcceptDonation(params.row.id) }} className="updateButton" >
