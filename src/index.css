@@ -26,4 +26,6 @@ body {
     font-family: "Changa-Light";
     src: url(assets/fonts/static/Changa-Light.ttf);
   }
-  
+  .Toastify__toast {
+  font-family: "Changa-SemiBold"!important;
+}
