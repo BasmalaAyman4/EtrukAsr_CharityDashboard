@@ -17,7 +17,7 @@ const DataDonation = () => {
   }
 
   useEffect(() => {
-    axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/donations", {
+    axios.get("https://otrok.invoacdmy.com/api/charity/donation/index", {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -33,7 +33,7 @@ const DataDonation = () => {
 
   function handleAcceptDonation(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/charity/donation/accept/${id}`, {},
+    axios.post(`https://otrok.invoacdmy.com/api/charity/donation/accept/${id}`, {},
       {
         headers:
         {
@@ -59,18 +59,20 @@ const DataDonation = () => {
       renderCell: (params) => {
 
         return (
+          <>
+          {params.row.status === 'pending' ?
           <div className="cellAction">
-            {/* <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link> */}
-
-
+    
             <button onClick={(e) => { handleAcceptDonation(params.row.id) }} className="updateButton" >
               accept
             </button>
 
 
           </div>
+          :
+          null
+      }
+          </>
         );
       },
     },

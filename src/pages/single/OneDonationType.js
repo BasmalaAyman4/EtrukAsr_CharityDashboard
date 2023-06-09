@@ -14,7 +14,7 @@ const OneDonationType = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/show/donationtype/${donationTypeId.donationId}`,)
+    axios.get(`https://otrok.invoacdmy.com/api/charity/donationtype/show/${donationTypeId.donationId}`,)
       .then((response) => {
         console.log(response.data.Donationtype)
         setOneDonationType(response.data.Donationtype)
@@ -30,7 +30,7 @@ const OneDonationType = () => {
 
         <div className="top">
           <div className="left">
-            <Link to={`/editCategory/${oneDonationType.id}`} className="editButton">Edit</Link>
+            
             <h1 className="title">Information</h1>
             <div className="item">
 

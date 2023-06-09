@@ -25,7 +25,7 @@ const Widget = ({ type }) => {
         isMoney: false,
         link: "See all cases",
         linkSrc: '/cases',
-        seqLink: 'https://otrok.invoacdmy.com/api/dashboard/charity/cases',
+        seqLink: 'https://otrok.invoacdmy.com/api/charity/case/index',
         query: "cases",
         icon: (
           <PersonOutlinedIcon
@@ -38,32 +38,13 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-
-    case "charities":
-      data = {
-        title: "CHARITIES",
-        isMoney: false,
-        linkSrc: '/charities',
-        link: "View all charities",
-        seqLink: 'http://otrok.invoacdmy.com/api/dashboard/charity/index',
-        icon: (
-          <AiFillBankIcon
-            className="icon"
-            style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
-              color: "purple",
-            }}
-          />
-        ),
-      };
-      break;
     case "events":
       data = {
         title: "EVENTS",
         query: "events",
         link: "See all events",
         linkSrc: '/event',
-        seqLink: 'https://otrok.invoacdmy.com/api/dashboard/charity/events',
+        seqLink: 'https://otrok.invoacdmy.com/api/charity/event/index',
         icon: (
           <BsCalendarEvent
             className="icon"
@@ -81,7 +62,7 @@ const Widget = ({ type }) => {
         query: "donations",
         link: "See all donations",
         linkSrc: '/donation',
-        seqLink: 'https://otrok.invoacdmy.com/api/dashboard/charity/donations',
+        seqLink: 'https://otrok.invoacdmy.com/api/charity/event/index',
         icon: (
           <PaidIcon
             className="icon"

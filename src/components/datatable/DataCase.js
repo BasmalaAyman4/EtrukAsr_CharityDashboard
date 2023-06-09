@@ -15,14 +15,13 @@ const DataCase = () => {
   }
 
   useEffect(() => {
-    axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/cases", {
+    axios.get("https://otrok.invoacdmy.com/api/charity/case/index", {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
       }
     })
       .then(response => {
-        console.log(response.data.cases)
         setData(response.data.cases)
       }
       ).catch((err) => { console.log(err) })
@@ -30,7 +29,7 @@ const DataCase = () => {
   }, [])
   function handleDeleteCase(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`, {}, {
+    axios.post(`https://otrok.invoacdmy.com/api/charity/case/destroy/${id}`, {}, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"

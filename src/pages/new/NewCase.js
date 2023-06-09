@@ -47,7 +47,7 @@ const NewCase = () => {
 
     })
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/all/categories`, {
+    axios.get(`https://otrok.invoacdmy.com/api/charity/category/index`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -58,14 +58,14 @@ const NewCase = () => {
     }
     ).catch((err) => { console.log(err) })
 
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/all/donationtypes`, {
+    axios.get(`https://otrok.invoacdmy.com/api/charity/donationtype/index`, {
       headers: {
         "Content-Type": "multipart/form-data"
 
       }
     }).then(response => {
       setDataType(response.data.Donationtypes)
-      console.log(response.data.Donationtypes,"lll")
+    
     }
     ).catch((err) => { console.log(err) })
 
@@ -197,7 +197,7 @@ const NewCase = () => {
   }
   addNewCase.append("donationtype_id", formData.donationTypeId);
   addNewCase.append("category_id", formData.caseTypeId);
-  addNewCase.append("status", formData.statusCase);
+
    if(formData.donationTypeId === "1"){
     addNewCase.append("initial_amount", formData.totalPrice);
    }
@@ -384,7 +384,6 @@ const NewCase = () => {
     })
       .then(response => {
         toast.success(response.data.message)
-        console.log(response)
       }
       ).catch((err) => { toast.error(err.response.data.message) })
 
@@ -471,22 +470,7 @@ const NewCase = () => {
                   onChange={onChangeHandler}
                 />
               </div>
-              <div className="formInput" >
-                  <select
-                    className="input select"
-                    name="statusCase"
-                    onChange={onChangeHandler}
-                    value={formData.statusCase}
-                  >
-                    <option  value=''> status</option>                
-                    <option value='pending' >pending</option>
-                    <option value='accepted'>accepted</option>
-                    <option value='published'>published</option>
-                    <option value='rejected'>rejected</option>
-                   
-                                    
-                  </select>
-                </div>
+             
               <div className="formInput" >
                 <select
                   className="input select"

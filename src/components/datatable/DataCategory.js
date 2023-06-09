@@ -13,34 +13,21 @@ const DataCategory = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/all/categories", {
-            headers: {
-                
-                "Content-Type": "multipart/form-data"
-            }
-        })
-            .then(response => {
-                setDataCategories(response.data.Categories)
-                console.log(response.data.Categories,"kk")
-            }
-            ).catch((err) => { console.log(err) })
-      
-
-    }, [])
-    function handleDeleteCase(id) {
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/destroy/${id}`,'', {
+        axios.get("https://otrok.invoacdmy.com/api/charity/category/index", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
                 "Content-Type": "multipart/form-data"
             }
         })
-        .then(response => {
-          toast.success(response.data.message)
-          console.log(response)
-        }
-        ).catch((err) => { toast.error('there are cases related to this category please delete them first') })
-        reset()
-      }
+            .then(response => {
+                setDataCategories(response.data.Categories)
+                
+            }
+            ).catch((err) => { console.log(err) })
+      
+
+    }, [])
+
     const actionColumn = [
         {
             field: "action",
@@ -50,18 +37,10 @@ const DataCategory = () => {
               
                 return (
                     <div className="cellAction">
-                        <Link to={`/categories/${params.row.id}`}  style={{ textDecoration: "none" }}>
+                        <Link to={`/categories/${params.row?.id}`}  style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
-                        {/* <button
-                            onClick={(e)=>{handleDeleteCase(params.row.id)}}
-                            className="deleteButton"
-                            >
-                            Delete
-                            </button>
-                            <Link to={`/editCategory/${params.row.id}`} style={{ textDecoration: "none" }}>
-                               <div className="updateButton">Update</div>
-                            </Link> */}
+                       
                     </div>
                 );
             },
@@ -71,9 +50,7 @@ const DataCategory = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Category
-                {/* <Link to="/categories/new" className="link">
-                    Add New
-                </Link> */}
+             
             </div>
             <DataGrid
                 key={seed}

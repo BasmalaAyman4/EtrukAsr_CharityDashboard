@@ -15,7 +15,7 @@ const Navbar = () => {
   const [userData, setUserData] = useState({});
   useEffect(() => {
     
-    axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/showto/update", {
+    axios.get("https://otrok.invoacdmy.com/api/charity/profile/show", {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"

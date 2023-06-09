@@ -13,7 +13,7 @@ const DataType = () => {
         setSeed(Math.random());
     }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/all/donationtypes", {
+        axios.get("https://otrok.invoacdmy.com/api/charity/donationtype/index", {
             headers: {
 
                 "Content-Type": "multipart/form-data"
@@ -25,20 +25,7 @@ const DataType = () => {
             ).catch((err) => { console.log(err) })
     }, [])
 
-    function handleDeleteCase(id) {
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/donationtype/destroy/${id}`, {}, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
-                "Content-Type": "multipart/form-data"
-            }
-        })
-            .then(response => {
-                toast.success(response.data.message)
-                console.log(response)
-            }
-            ).catch((err) => { toast.error('there are cases related to this category please delete them first') })
-        reset()
-    }
+  
 
     const actionColumn = [
         {
@@ -51,15 +38,7 @@ const DataType = () => {
                         <Link to={`/donaionTypes/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
-                        {/*<div
-                            className="deleteButton"
-                            onClick={(e) => { handleDeleteCase(params.row.id) }}
-                        >
-                            Delete
-                        </div>
-                         <Link to={`/editType/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="updateButton">Update</div>
-                        </Link> */}
+                       
                     </div>
                 );
             },
@@ -69,9 +48,7 @@ const DataType = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 DonationType
-                {/* <Link to="/donaionTypes/new" className="link">
-                    Add New
-                </Link> */}
+        
             </div>
             <DataGrid
                 className="datagrid"

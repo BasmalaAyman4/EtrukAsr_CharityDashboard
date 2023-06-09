@@ -34,7 +34,7 @@ const UpdateEvent = () => {
   useEffect(() => {
 
 
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/events/show/${updateId.updateEventId}`, {
+    axios.get(`https://otrok.invoacdmy.com/api/charity/event/show/${updateId.updateEventId}`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -105,7 +105,7 @@ const UpdateEvent = () => {
     const toastId = toast.loading("Please wait... ")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/update/${updateId.updateEventId}`, UpdateEvent, {
+    axios.post(`https://otrok.invoacdmy.com/api/charity/event/update/${updateId.updateEventId}`, UpdateEvent, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"

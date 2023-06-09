@@ -14,7 +14,7 @@ const DataEvent = () => {
   }
 
   useEffect(() => {
-    axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/events", {
+    axios.get("https://otrok.invoacdmy.com/api/charity/event/index", {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -29,7 +29,7 @@ const DataEvent = () => {
   }, [])
   function handleDelete(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`, {}, {
+    axios.post(`https://otrok.invoacdmy.com/api/charity/event/show/${id}`, {}, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"

@@ -91,7 +91,7 @@ const NewEvent = () => {
     const toastId = toast.loading("please wait ... ")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
-    axios.post("https://otrok.invoacdmy.com/api/dashboard/charity/store/event", addNewCase, {
+    axios.post("https://otrok.invoacdmy.com/api/charity/event/store", addNewCase, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"

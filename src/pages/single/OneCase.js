@@ -13,20 +13,24 @@ const OneCase = () => {
   const casesId = useParams()
 
 
-  useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/user/case/show/${casesId.caseId}`, {
-      headers: {
 
-        "Content-Type": "multipart/form-data"
+  useEffect(() => {
+    axios.get(`https://otrok.invoacdmy.com/api/charity/case/show/${casesId.caseId}`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+          "Content-Type": "multipart/form-data"
+
       }
-    })
+  })
       .then((response) => {
-        console.log(response.data.case, "kkkkk")
+        console.log(response.data?.case)
         setOneCaseData(response.data?.case)
-        setOne(response.data.case?.caseimage)
+        setOne(response.data?.case?.caseimage)
       }).catch((err) => { console.log(err) })
 
   }, [])
+
+
   return (
     <div className="single">
       <Sidebar />
@@ -35,10 +39,10 @@ const OneCase = () => {
 
         <div className="top">
           <div className="left">
-            <Link to={`/edit/${oneCaseData.id}`} className="editButton">Edit</Link>
+            <Link to={`/edit/${oneCaseData?.id}`} className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
-              <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
+              <Carousel  width={300} autoPlay interval="1000" transitionTime="1000" >
                 {one && one.map((imgSrc, index) => (<img src={imgSrc?.image} key={index} alt="" />))}
               </Carousel>
 
@@ -46,11 +50,11 @@ const OneCase = () => {
               <div className="details">
                 <div className="detailItem">
                   <span className="itemKey">Name En: </span>
-                  <span className="itemValue"> {oneCaseData?.name}</span>
+                  <span className="itemValue"> {oneCaseData?.name_en}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Name Ar: </span>
-                  <span className="itemValue"> {oneCaseData?.name}</span>
+                  <span className="itemValue"> {oneCaseData?.name_ar}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Category Ar: </span>
@@ -64,17 +68,18 @@ const OneCase = () => {
                   <span className="itemKey">Donation Type Ar: </span>
                   <span className="itemValue"> {oneCaseData?.donationtype?.name_ar}</span>
                 </div>
+                
                 <div className="detailItem">
                   <span className="itemKey">Donation Type En: </span>
                   <span className="itemValue"> {oneCaseData?.donationtype?.name_en}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Description En:</span>
-                  <span className="itemValue">{oneCaseData?.description}</span>
+                  <span className="itemValue">{oneCaseData?.description_en}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Description Ar:</span>
-                  <span className="itemValue">{oneCaseData?.description}</span>
+                  <span className="itemValue">{oneCaseData?.description_ar}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Required Amount :</span>
@@ -89,9 +94,22 @@ const OneCase = () => {
                   <span className="itemKey">Remaining Amount:</span>
                   <span className="itemValue">{oneCaseData?.remaining_amount}</span>
                 </div>
+                {oneCaseData?.file ?
+                <div className="detailItem">
+                  <span className="itemKey">File Attachment :</span>
+                  <span className="itemValue"><Link to={oneCaseData?.file}>click here</Link></span>
+                </div>
+                
+                :
+                null
+                } 
                 <div className="detailItem">
                   <span className="itemKey">Status:</span>
                   <span className="itemValue">{oneCaseData?.status}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey"> User :</span>
+                  <span className="itemValue">{oneCaseData?.user?.email}</span>
                 </div>
               </div>
             </div>
@@ -101,10 +119,7 @@ const OneCase = () => {
             <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
           </div>
         </div>
-        <div className="bottom">
-          <h1 className="title">All Case's Donations Transactions </h1>
-          <DonationList />
-        </div>
+      
       </div>
     </div>
   );

@@ -17,10 +17,11 @@ const OneEvent = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/user/event/show/${eventId.eventId}?lang=en`)
+    axios.get(`https://otrok.invoacdmy.com/api/charity/event/show/${eventId.eventId}`)
       .then((response) => {
 
         setEvent(response.data.event)
+        console.log(response.data.event)
 
       }).catch((err) => { console.log(err) })
 
@@ -45,19 +46,19 @@ const OneEvent = () => {
               <div className="details">
                 <div className="detailItem">
                   <span className="itemKey">Name En: </span>
-                  <span className="itemValue"> {event?.name}</span>
+                  <span className="itemValue"> {event?.name_en}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Name Ar: </span>
-                  <span className="itemValue"> {event?.name}</span>
+                  <span className="itemValue"> {event?.name_ar}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Description En:</span>
-                  <span className="itemValue">{event?.description}</span>
+                  <span className="itemValue">{event?.description_en}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Description Ar:</span>
-                  <span className="itemValue">{event?.description}</span>
+                  <span className="itemValue">{event?.description_ar}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Start Date: </span>
@@ -85,10 +86,7 @@ const OneEvent = () => {
             <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
           </div>
         </div>
-        <div className="bottom">
-          <h1 className="title">All Voulenteers who are join in this event </h1>
-          <DataOfVoulenteerJoin />
-        </div>
+        
       </div>
     </div>
   );

@@ -49,30 +49,28 @@ const UpdateCase = () => {
     const [arrayGenderEn, setArrayGenderEn] = useState([])
     const [arraySeasonEn, setArraySeasonEn] = useState([])
     useEffect(() => {
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`, {
+        axios.get(`https://otrok.invoacdmy.com/api/charity/category/index`, {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
-                "Content-Type": "multipart/form-data"
+              "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+              "Content-Type": "multipart/form-data"
+      
             }
-        })
-            .then(response => {
-                setDataCategories(response.data.Categories)
-            }
-            ).catch((err) => { console.log(err) })
-
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`, {
+          }).then(response => {
+            setDataCategories(response.data.Categories)
+          }
+          ).catch((err) => { console.log(err) })
+      
+          axios.get(`https://otrok.invoacdmy.com/api/charity/donationtype/index`, {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
-                "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data"
+      
             }
-        })
-            .then(response => {
-                setDataType(response.data.Donationtypes)
-                console.log(response)
-            }
-            ).catch((err) => { console.log(err) })
-
-        axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/${updateId.updateId}`, {
+          }).then(response => {
+            setDataType(response.data.Donationtypes)
+          
+          }
+          ).catch((err) => { console.log(err) })
+        axios.get(`https://otrok.invoacdmy.com/api/charity/case/show/${updateId.updateId}`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
                 "Content-Type": "multipart/form-data"
@@ -439,7 +437,7 @@ const UpdateCase = () => {
         const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/user/case/update/${updateId.updateId}`, addNewCase, {
+        axios.post(`https://otrok.invoacdmy.com/api/charity/case/update/${updateId.updateId}`, addNewCase, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
                 "Content-Type": "multipart/form-data"
@@ -447,7 +445,6 @@ const UpdateCase = () => {
         })
             .then(response => {
                 toast.success(response.data.message)
-                console.log(response)
             }
             ).catch((err) => { toast.error(err.response.data.message) })
 
@@ -530,23 +527,58 @@ const UpdateCase = () => {
                                     onChange={onChangeHandler}
                                 />
                             </div>
-
+                            {formData.statusCase === 'pending'?
                             <div className="formInput" >
                                 <select
                                     className="input select"
                                     name="statusCase"
-                                    onChange={onChangeHandler}
                                     value={formData.statusCase}
                                 >
                                     <option value=''> status</option>
 
                                     <option value='pending' >pending</option>
-                                    <option value='accepted'>accepted</option>
-                                    <option value='published'>published</option>
-                                    <option value='rejected'>rejected</option>
+                                
 
                                 </select>
                             </div>
+                            : 
+                            formData.statusCase === 'accepted' ? 
+                            <div className="formInput" >
+                            <select
+                                className="input select"
+                                name="statusCase"
+                                onChange={onChangeHandler}
+                                value={formData.statusCase}
+                            >
+                                <option value=''> status</option>
+
+                                
+                                <option value='accepted'>accepted</option>
+                                <option value='published'>published</option>
+                                
+
+                            </select>
+                            
+                        </div> 
+                        :
+                        <div className="formInput" >
+                        <select
+                            className="input select"
+                            name="statusCase"
+                            onChange={onChangeHandler}
+                            value={formData.statusCase}
+                        >
+                            <option value=''> status</option>
+
+                            
+                            <option value='accepted'>accepted</option>
+                            <option value='published'>published</option>
+                            
+
+                        </select>
+                        
+                    </div> 
+}
                             {formData.statusCase === 'rejected' ?
                                 <>
                                     <div className="formInput" >

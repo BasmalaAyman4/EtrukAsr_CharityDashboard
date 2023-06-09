@@ -15,7 +15,7 @@ const OneCategory = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/show/category/${categoryId.categoryId}?lang=ar`, {
+    axios.get(`https://otrok.invoacdmy.com/api/charity/category/show/${categoryId.categoryId}?lang=ar`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -35,11 +35,10 @@ const OneCategory = () => {
 
         <div className="top">
           <div className="left">
-            <Link to={`/editCategory/${oneCategoryData.id}`} className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src={oneCategoryData.image}
+                src={oneCategoryData?.image}
                 alt=""
                 className="itemImg"
               />

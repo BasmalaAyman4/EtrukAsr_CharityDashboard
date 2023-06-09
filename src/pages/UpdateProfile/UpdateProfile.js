@@ -27,7 +27,7 @@ const UpdateProfile = () => {
 
     })
     useEffect(() => {
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/charity/showto/update`, {
+        axios.get(`https://otrok.invoacdmy.com/api/charity/profile/show`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
                 "Content-Type": "multipart/form-data"
@@ -40,7 +40,7 @@ const UpdateProfile = () => {
                     email: response.data.charity.email,
                     address: response.data.charity.address,
                     phone: response.data.charity.phone,
-                    img: response.data.charity.image,
+                    
                     descriptionAr:'',
                     descriptionEn:''
                 })
@@ -110,7 +110,7 @@ const UpdateProfile = () => {
     storeProfile.append("name_ar", formData.nameAr);
     storeProfile.append("address", formData.address);
     storeProfile.append("phone", formData.phone);
-    if(imageUrl){
+    if(formData.img){
       storeProfile.append("image", formData.img);
     }
     if(formData.descriptionAr){
@@ -122,10 +122,10 @@ const UpdateProfile = () => {
     
 
     const onSubmitHandler = (e) => {
-        const toastId = toast.loading("...انتظر قليلا")
+        const toastId = toast.loading("please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post("https://otrok.invoacdmy.com/api/dashboard/charity/edit", storeProfile, {
+        axios.post("https://otrok.invoacdmy.com/api/charity/profile/update", storeProfile, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
                 "Content-Type": "multipart/form-data"

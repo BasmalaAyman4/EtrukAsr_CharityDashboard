@@ -16,10 +16,11 @@ import AiFillBankIcon from '@mui/icons-material/Home'
 import { AiOutlineGold } from 'react-icons/ai'
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from './../../../src/assets/images/whiteLogo.png'
 import styles from "./Sidebar.module.css"
 import GavelIcon from '@mui/icons-material/Gavel';
+import axios from "axios";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -30,6 +31,9 @@ const Sidebar = () => {
     window.location.reload();
 
   }
+
+  
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -71,31 +75,15 @@ const Sidebar = () => {
               <span>Donations</span>
             </li>
           </Link>
-          <Link to="/volunteer" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>volunteers</span>
-            </li>
-          </Link>
+       
           <Link to="/event" style={{ textDecoration: "none" }}>
             <li>
               <BsCalendarEvent className="icon" />
               <span>Events</span>
             </li>
           </Link>
-          <p className="title">USEFUL</p>
-          <Link to="/charities" style={{ textDecoration: "none" }}>
-            <li>
-              <AiFillBankIcon className="icon" />
-              <span>Charities</span>
-            </li>
-          </Link>
-          <Link to="/gold" style={{ textDecoration: "none" }}>
-            <li>
-              <AiOutlineGold className="icon" />
-              <span>Gold Price</span>
-            </li>
-          </Link>
+         
+      
           <p className="title">USER</p>
           <Link to="/profile" style={{ textDecoration: "none" }}>
             <li>
