@@ -19,6 +19,7 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useEffect, useState } from "react";
 import logo from './../../../src/assets/images/whiteLogo.png'
 import styles from "./Sidebar.module.css"
+import {BiDonateHeart} from 'react-icons/bi'
 import GavelIcon from '@mui/icons-material/Gavel';
 import axios from "axios";
 
@@ -46,15 +47,17 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+          <Link to="/" style={{ textDecoration: "none" }}>
+          <li> 
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
           </li>
-          <p className="title">LISTS</p>
+          </Link>
+         
           <Link to="/cases" style={{ textDecoration: "none" }}>
             <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Cases</span>
+                  <BiDonateHeart className="icon" />
+                  <span>Cases</span>
             </li>
           </Link>
           <Link to="/categories" style={{ textDecoration: "none" }}>
