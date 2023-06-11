@@ -1,13 +1,13 @@
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "id", headerName: "ID", width: 50 },
   {
     field: "image",
     headerName: "Image",
-    width: 130,
+    width: 70,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
-             <img className="cellImg" src={params?.row?.caseimage[0]?.image} alt="avatar" />
+          <img className="cellImg" src={params?.row?.caseimage[0]?.image} alt="avatar" />
         </div>
       );
     },
@@ -15,16 +15,28 @@ export const userColumns = [
   {
     field: "name_en",
     headerName: "Name En",
-    width: 200,
+    width: 130,
   },
 
 
   {
     field: "initial_amount",
     headerName: "Required Amount ",
-    width: 200,
+    width:150,
   },
- 
+  
+  {
+    field: "Type ",
+    headerName: "Type Donation",
+    width: 120,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          {params.row.donationtype.name_en}
+        </div>
+      );
+    },
+  },
   {
     field: "status",
     headerName: "Status",
@@ -40,3 +52,4 @@ export const userColumns = [
     },
   },
 ];
+

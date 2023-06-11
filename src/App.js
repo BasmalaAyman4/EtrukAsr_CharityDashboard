@@ -21,7 +21,6 @@ import OneDonationType from "./pages/single/OneDonationType";
 import UpdateDonationType from "./pages/update/UpdateDonationType";
 import ListDonationType from "./pages/list/ListDonationType";
 import ListDonations from "./pages/list/ListDonations";
-import OneDonation from "./pages/single/OneDonation";
 import ListVolunteer from "./pages/list/ListVolunteer";
 import OneVolunteer from "./pages/single/OneVolunteer";
 import NewEvent from "./pages/new/NewEvent";
@@ -29,6 +28,7 @@ import OneEvent from "./pages/single/OneEvent";
 import ListEvent from "./pages/list/ListEvent";
 import UpdateEvent from "./pages/update/UpdateEvent";
 import UpdateProfile from "./pages/UpdateProfile/UpdateProfile";
+import OneDonation from "./pages/single/OneDonation";
 
 
 function App() {

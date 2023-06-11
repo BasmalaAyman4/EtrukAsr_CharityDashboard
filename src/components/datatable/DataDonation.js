@@ -8,9 +8,8 @@ import { userColumns } from '../../dataDonationTablesource';
 
 
 const DataDonation = () => {
-  const [token, setToken] = useState(localStorage.getItem('token'))
-  const [data, setData] = useState([]);
 
+  const [data, setData] = useState([]);
   const [seed, setSeed] = useState(1);
   const reset = () => {
     setSeed(Math.random());
@@ -51,18 +50,41 @@ const DataDonation = () => {
       })
 
   }
+  function handleDeleteCase(id) {
+
+    axios.get(`https://otrok.invoacdmy.com/api/charity/donation/destroy/${id}`, {
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
+    .then(response => {
+      toast.success(response.data.message)
+    }
+    ).catch((err) => { toast.error(err) })
+    reset()
+  }
   const actionColumn = [
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      width: 200,
       renderCell: (params) => {
 
         return (
           <>
           {params.row.status === 'pending' ?
           <div className="cellAction">
-    
+            <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <div className="viewButton">View</div>
+            </Link>
+            <button
+              onClick={(e)=>{handleDeleteCase(params.row.id)}}
+              className="deleteButton"
+            >
+              Delete
+            </button>
             <button onClick={(e) => { handleAcceptDonation(params.row.id) }} className="updateButton" >
               accept
             </button>

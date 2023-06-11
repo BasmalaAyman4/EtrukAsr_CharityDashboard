@@ -81,10 +81,46 @@ const OneCase = () => {
                   <span className="itemKey">Description Ar:</span>
                   <span className="itemValue">{oneCaseData?.description_ar}</span>
                 </div>
-                <div className="detailItem">
-                  <span className="itemKey">Required Amount :</span>
-                  <span className="itemValue">{oneCaseData?.initial_amount}</span>
-                </div>
+                {oneCaseData?.donationtype_id === '1' ?
+                 <div className="detailItem">
+                 <span className="itemKey">Required Amount :</span>
+                 <span className="itemValue">{oneCaseData?.initial_amount} LE</span>
+               </div>
+                :
+                null
+                }
+                    {oneCaseData?.donationtype_id === '2' ?
+                 <div className="detailItem">
+                 <span className="itemKey">Required volunteer  :</span>
+                 <span className="itemValue">{oneCaseData?.initial_amount} volunteer </span>
+               </div>
+                :
+                null
+                }
+                  {oneCaseData?.donationtype_id === '3' ?
+                 <div className="detailItem">
+                 <span className="itemKey">Required cartoons :</span>
+                 <span className="itemValue">{oneCaseData?.initial_amount} cartoon </span>
+               </div>
+                :
+                null
+                }
+                 {oneCaseData?.donationtype_id === '4' ?
+                 <div className="detailItem">
+                 <span className="itemKey">Required for persons :</span>
+                 <span className="itemValue">{oneCaseData?.initial_amount} person </span>
+               </div>
+                :
+                null
+                }
+                  {oneCaseData?.donationtype_id === '5' ?
+                 <div className="detailItem">
+                 <span className="itemKey">Required Items  :</span>
+                 <span className="itemValue">{oneCaseData?.initial_amount} items </span>
+               </div>
+                :
+                null
+                }
                 <div className="detailItem">
                   <span className="itemKey">Paied Amount:</span>
                   <span className="itemValue">{oneCaseData?.paied_amount}</span>

@@ -12,11 +12,18 @@ const OneDonation = () => {
   const [oneDonationData, setOneDonationData] = useState({})
   const [creationDate,setCreationDate] = useState()
   const DonationId = useParams()
+  const [donationItems,setDonationItems] = useState([])
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/show/${DonationId.donationId}`)
+    axios.get(`https://otrok.invoacdmy.com/api/charity/donation/show/${DonationId.donationId}`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
+          "Content-Type": "multipart/form-data"
+      }
+  })
       .then((response) => {
+        setDonationItems(response.data.donation[0].donationitem)
         setOneDonationData(response.data.donation[0])
         const formatter = new Intl.DateTimeFormat('en-GB', {
           year: 'numeric', month: '2-digit', day: '2-digit',
@@ -74,12 +81,7 @@ const OneDonation = () => {
               :
               null
               }
-              <div className="detailItem">
-                <span className="itemKey">Amount : </span>
-                <span className="itemValue"> {oneDonationData?.amount} {oneDonationData?.amount_description}</span>
-              </div>
-            
-             
+
               <div className="detailItem">
                 <span className="itemKey">Donation Type Ar: </span>
                 <span className="itemValue"> {oneDonationData?.donationtype?.name_ar}</span>
@@ -88,6 +90,63 @@ const OneDonation = () => {
                 <span className="itemKey">Donation Type En: </span>
                 <span className="itemValue"> {oneDonationData?.donationtype?.name_en}</span>
               </div>
+              { oneDonationData?.donationtype_id === '1'?
+              <div className="detailItem">
+                <span className="itemKey">Amount of money: </span>
+                <span className="itemValue"> {oneDonationData?.amount}</span>
+              </div>
+              :
+              null
+              }
+              { oneDonationData?.donationtype_id === '2'?
+              <div className="detailItem">
+                <span className="itemKey">Number of volunteers: </span>
+                <span className="itemValue"> {oneDonationData?.amount}</span>
+              </div>
+              :
+              null
+              }
+                  { oneDonationData?.donationtype_id === '3'?
+              <div className="detailItem">
+                <span className="itemKey">Number of cartoons: </span>
+                <span className="itemValue"> {oneDonationData?.amount}</span>
+              </div>
+              :
+              null
+              }
+              { oneDonationData?.donationtype_id === '4'?
+                <>
+                  <div className="detailItem">
+                    <span className="itemKey">Number of persons:</span>
+                    <span className="itemValue mr-2">{oneDonationData?.amount} </span>
+                
+                  </div>
+                   <div className="detailItem">
+                   <span className="itemKey">Gender:</span>
+                   <span className="itemValue mr-2"> {oneDonationData?.amount_description} </span>
+               
+                 </div>
+                 <div className="detailItem">
+                   <span className="itemKey">Seasons:</span>
+                   <span className="itemValue mr-2"> {oneDonationData?.description} </span>
+               
+                 </div>
+                 </>
+                  :
+                  null
+                }
+              { oneDonationData?.donationtype_id === '5'?
+                  <div className="detailItem">
+                    <span className="itemKey">Amount Details:</span>
+                    {donationItems && donationItems.map(item =>(
+                    <>
+                    <span className="itemValue mr-2">{item?.item_details?.name_en}: {item?.item_details?.amount + ' ,'} </span>
+                    </>
+                  ))}
+                  </div>
+                  :
+                  null
+                }
               {oneDonationData?.method ?
                 <div className="detailItem">
                   <span className="itemKey">Method:</span>
@@ -118,10 +177,7 @@ const OneDonation = () => {
             <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
           </div>
         </div>
-        <div className="bottom">
-          <h1 className="title">All Case's Donations Transactions </h1>
-          <DonationList />
-        </div>
+        
       </div>
     </div>
   );

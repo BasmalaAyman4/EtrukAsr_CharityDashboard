@@ -147,7 +147,7 @@ const UpdateProfile = () => {
     <div className="listContainer">
       <Navbar />
       <div className={style.login}>
-                    <p className={style.loginPara}>تعديل الحساب</p>
+                    <p className={style.loginPara}>Edit profile</p>
                     <div >
                         <Form >
                             <div className={`${style.im} text-center`}>

@@ -17,10 +17,9 @@ import { AiOutlineGold } from 'react-icons/ai'
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useEffect, useState } from "react";
-import logo from './../../../src/assets/images/whiteLogo.png'
+import logo from './../../../src/assets/images/logo.png'
 import styles from "./Sidebar.module.css"
 import {BiDonateHeart} from 'react-icons/bi'
-import GavelIcon from '@mui/icons-material/Gavel';
 import axios from "axios";
 
 const Sidebar = () => {
@@ -40,7 +39,6 @@ const Sidebar = () => {
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
           <img src={logo} alt='' className={styles["side-bar__logo"]} />
-          {/* <span className="logo">Admin</span> */}
         </Link>
       </div>
       <hr />
