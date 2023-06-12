@@ -49,7 +49,7 @@ const DataCategory = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Category
+               All Categories
              
             </div>
             <DataGrid

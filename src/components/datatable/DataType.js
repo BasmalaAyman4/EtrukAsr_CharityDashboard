@@ -47,7 +47,7 @@ const DataType = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                DonationType
+              All  DonationType
         
             </div>
             <DataGrid

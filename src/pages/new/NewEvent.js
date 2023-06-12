@@ -80,12 +80,13 @@ const NewEvent = () => {
   addNewCase.append("name_en", formData.titleEn);
   addNewCase.append("description_ar", formData.descriptionAr);
   addNewCase.append("description_en", formData.descriptionEn);
-  addNewCase.append("image", formData.img);
   addNewCase.append("start_date", formData.startDate);
   addNewCase.append("end_date", formData.endDate);
   addNewCase.append("start_time", formData.startTime);
   addNewCase.append("end_time", formData.endTime);
-
+  if(formData.img){
+    addNewCase.append("image", formData.img);
+   }
   const onSubmitHandler = (e) => {
 
     const toastId = toast.loading("please wait ... ")

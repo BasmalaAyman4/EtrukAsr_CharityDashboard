@@ -29,7 +29,7 @@ const DataEvent = () => {
   }, [])
   function handleDelete(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/charity/event/show/${id}`, {}, {
+    axios.post(`https://otrok.invoacdmy.com/api/charity/event/destroy/${id}`, {}, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('tokenC')}`,
         "Content-Type": "multipart/form-data"
@@ -71,7 +71,7 @@ const DataEvent = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New Event
+        All events
         <Link to="/event/new" className="link">
           Add New
         </Link>

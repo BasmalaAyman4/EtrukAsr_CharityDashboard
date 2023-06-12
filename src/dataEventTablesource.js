@@ -1,9 +1,9 @@
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 40 },
+  { field: "id", headerName: "ID", width: 30 },
   {
     field: "image",
     headerName: "Image",
-    width: 100,
+    width: 70,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">

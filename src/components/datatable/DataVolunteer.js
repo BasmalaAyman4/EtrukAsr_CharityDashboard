@@ -78,7 +78,7 @@ const DataVolunteer = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Donations
+        All volunteers
 
       </div>
       <DataGrid
